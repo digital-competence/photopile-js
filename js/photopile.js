@@ -1,11 +1,10 @@
 //
 // File: photopile.js
 // Auth: Brian W. Howell
-// Date: 29 April 2014
+// Date: 8 May 2014
 //
 // Photopile image gallery
 //
-
 var photopile = (function() {
 
     //---------------------------------------------------------------------------------------------
@@ -124,7 +123,7 @@ var photopile = (function() {
 
         }, // bindUIActions
 
-        // Sets thumbnail properties.
+        // Setters for various thumbnail properties.
         setOverlap  : function( thumb ) { thumb.css( 'margin', ((thumbOverlap * -1) / 2) + 'px' ); },
         setZ        : function( thumb, layer ) { thumb.css( 'z-index', layer ); },
         setRandomZ  : function( thumb ) { thumb.css({ 'z-index' : Math.floor((Math.random() * numLayers) + 1) }); },
@@ -140,12 +139,7 @@ var photopile = (function() {
         // Sets the active thumbnail.
         setActive : function( thumb ) { thumb.addClass(this.active); },
 
-        // Gets the active thumbnail if set, or returns false.
-        getActive : function() { 
-            return ($('li.' + this.active)[0]) ? $('li.' + this.active).first() : false;
-        },
-
-        // Get active thumbnail properties
+        // Getters for active thumbnail properties
         getActiveOffset   : function() { return $('li.' + this.active).offset(); },
         getActiveHeight   : function() { return $('li.' + this.active).height(); },
         getActiveWidth    : function() { return $('li.' + this.active).width(); },
@@ -155,6 +149,11 @@ var photopile = (function() {
                 var values = transform.split('(')[1].split(')')[0].split(',');
                 var angle = Math.round( Math.asin( values[1]) * (180/Math.PI) );
                 return angle;
+        },
+
+        // Gets the active thumbnail if set, or returns false.
+        getActive : function() { 
+            return ($('li.' + this.active)[0]) ? $('li.' + this.active).first() : false;
         },
 
         // Returns a shift amount used to better position the photo container 
@@ -174,8 +173,6 @@ var photopile = (function() {
     // PHOTO CONTAINER
     // Dynamic container div wrapping an img element that displays the 
     // fullsize image associated with the active thumbnail
-    //
-    // @TODO: Add info button that will display the alt tag to user
     //--------------------------------------------------------------------
 
     var photo = {
@@ -190,8 +187,7 @@ var photopile = (function() {
         fullSizeHeight : null,   // will hold height of active thumbnail's fullsize image
         windowPadding  : 40,     // minimum space between container and edge of window (px)
         
-        // Initializes the photo container.
-        // Adds elements to DOM and saves container selectors.
+        // Adds photo container elements to DOM.
         init : function() {
 
             // append and style photo container
@@ -233,7 +229,7 @@ var photopile = (function() {
                 self.loadImage( thumb.getActiveImgSrc(), function() {
                     self.image.fadeTo(fadeDuration, '1');
                     self.enlarge();
-                    $('body').bind('click', function() { self.putDown(); });
+                    $('body').bind('click', function() { self.putDown(); }); // bind putdown event to body
                 });
             }
         }, // pickup
@@ -387,8 +383,6 @@ var photopile = (function() {
     //----------------------------------------------------------------------
     // NAVIGATOR
     // Collection of div elements used to navigate the photos in gallery
-    //
-    // @TODO: Add close (putdown) photo button
     //----------------------------------------------------------------------
 
     var navigator = {
