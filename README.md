@@ -7,7 +7,7 @@ Thumbnail clicks remove photos from the pile, *(enlarging them as if being picke
 
 Improvements
 ------------
-Wish list for future improvements includes:
+Wish list for future improvements:
 
 * Improved cross-browser support
 * Improved performance when user quick-clicks multiple thumbnails before they are viewed
