@@ -1,4 +1,9 @@
 <?php
+
+//------------------------------------------------------------
+// Replace this with an index file specific to your project
+//------------------------------------------------------------
+
 require_once '../config.php';
 define('PAGE', 'demo');
 require_once '../header.php';
