@@ -69,7 +69,7 @@ ul.photopile li a {
     outline: none;
     text-decoration: none;
     border: 1px solid #6F6F6F;
-    box-shadow: 0 0 20px #9F9F9F;
+    box-shadow: 0 0 20px #3D3D3D;
 }
 ul.photopile li.photopile-active-thumbnail:hover,
 ul.photopile li.photopile-active-thumbnail a:hover { 
