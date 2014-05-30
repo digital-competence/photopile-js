@@ -95,7 +95,8 @@ var photopile = (function() {
 
                         // unbind mouseover/out so thumb remains above pile
                         $('ul.photopile').children().each( function() { 
-                            $(this).unbind('mouseover').unbind('mouseout');
+                            thumb.unbind("mouseover", self.bringToTop);
+                            thumb.unbind("mouseout", self.moveDownOne);
                         });
                     },
                     drag : function( event, ui ) {
@@ -109,7 +110,8 @@ var photopile = (function() {
 
                         // re-bind mouseover/out so thumb is moved to top of pile on hover
                         $('ul.photopile').children().each( function() { 
-                            self.bindMouseOverMouseOut($(this));
+                            thumb.bind("mouseover", self.bringToTop);
+                            thumb.bind("mouseout", self.moveDownOne);
                         });
 
                     }
@@ -121,7 +123,9 @@ var photopile = (function() {
         // Binds UI actions to thumbnail.
         bindUIActions : function( thumb ) {
             var self = this;
-            self.bindMouseOverMouseOut( thumb );
+            
+            thumb.bind("mouseover", self.bringToTop);
+            thumb.bind("mouseout", self.moveDownOne);
        
             // Pickup the thumbnail on click (if not being dragged).
             thumb.click( function(e) {
@@ -141,25 +145,19 @@ var photopile = (function() {
 
         }, // bindUIActions
 
-        bindMouseOverMouseOut : function( thumb ) {
-
-            // Move to top of pile and change border color.
-            thumb.mouseover( function() { 
-                $(this).css({
-                    'z-index'    : numLayers + 1,
-                    'background' : thumbBorderHover 
-                });
+        bringToTop : function() {
+            $(this).css({
+                'z-index'    : numLayers + 1,
+                'background' : thumbBorderHover 
             });
+        },
 
-            // Move down one layer and return to default border color.
-            thumb.mouseout( function() { 
-                $(this).css({
-                    'z-index'    : numLayers,
-                    'background' : thumbBorderColor
-                });
+        moveDownOne : function() {
+            $(this).css({
+                'z-index'    : numLayers,
+                'background' : thumbBorderColor
             });
-
-        }, // bindMouseOverMouseOut
+        },
 
         // Setters for various thumbnail properties.
         setOverlap  : function( thumb ) { thumb.css( 'margin', ((thumbOverlap * -1) / 2) + 'px' ); },
