@@ -18,6 +18,7 @@
 @media (min-width: 321px) and (max-width: 568px)  { ul.photopile li a { max-width: 100px; }}
 @media (min-width: 569px) and (max-width: 768px)  { ul.photopile li a { max-width: 115px; }}
 @media (min-width: 769px) and (max-width: 1024px) { ul.photopile li a { max-width: 125px; }}
+@media (min-width: 1025px)                        { ul.photopile li a { max-width: 150px; }}
 
 /*-----------------------------------------------------------------------------
  *  Minimum height of the photopile's container div.
