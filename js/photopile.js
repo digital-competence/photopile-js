@@ -28,6 +28,10 @@ var photopile = (function() {
     var photoBorderColor  = 'white';    // border color
     var showInfo          = true;       // include photo description (alt tag) in photo container
 
+    // Autoplay
+    var autoplayGallery   = false;       // autoplay the photopile
+    var autoplaySpeed     = 5000;       // ms
+
     // Images
     var loading    = 'images/loading.gif';  // path to img displayed while gallery/thumbnails loads
 
@@ -59,9 +63,24 @@ var photopile = (function() {
                 'display' : 'inline-block'
             }).fadeTo(fadeDuration, 1);
             navigator.init();  // init navigator
+            if (autoplayGallery) {
+                autoplay();
+            }
         });
     
     } // init
+
+    function autoplay() {
+        var nextThumb = $('ul.photopile').children().first();
+        window.setInterval(function () {
+            nextThumb.children().first().click();
+            if (nextThumb.hasClass('last')) {
+                nextThumb = $('ul.photopile').children().first();
+            } else {
+                nextThumb = nextThumb.next();
+            }
+        }, autoplaySpeed);
+    }
 
     //-----------------------------------------------------
     // THUMBNAIL
@@ -487,7 +506,10 @@ var photopile = (function() {
 
     }; // navigator
 
-    return { scatter : init }  // Photopile's 1 method API
+    return { 
+        scatter  : init,
+        autoplay : autoplay
+    }
 
 })(); // photopile
 
