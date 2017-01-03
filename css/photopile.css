@@ -140,3 +140,7 @@ div#photopile-nav-prev {
 div#photopile-nav-prev:hover {
     background-position: 0 -50px;
 }
+
+.spc-wrapper {
+    max-width: 900px;
+}

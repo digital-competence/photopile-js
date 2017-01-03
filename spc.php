@@ -11,7 +11,7 @@ require_once '../header.php';
 	<div class="col-sm-12">
 		<h1 class="h4">Steemit Photo Challenge 1st Place Winners</h1>
 
-		<div class="photopile-wrapper">
+		<div class="photopile-wrapper spc-wrapper">
 			<ul class="photopile">
 
 				<!-- SPC 1 -->
