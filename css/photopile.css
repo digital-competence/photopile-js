@@ -142,5 +142,6 @@ div#photopile-nav-prev:hover {
 }
 
 .spc-wrapper {
+    margin-top: 500px;
     max-width: 900px;
 }
