@@ -36,6 +36,39 @@ Add gallery markup:
         <!-- Add as many list items as you require for your gallery :) -->
       </div>
     </div>
+    
+And script:
+
+    PhotoPile({
+      OPTION: VALUE,
+      ...
+    }).scatter()
+    
+Optionables here (with default values):
+
+    // Thumbnails
+    numLayers:          5,          // number of layers in the pile (max zindex)
+    thumbOverlap:       50,         // overlap amount (px)
+    thumbRotation:      45,         // maximum rotation (deg)
+    thumbBorderWidth:   2,          // border width (px)
+    thumbBorderColor:   'white',    // border color
+    thumbBorderHover:   '#EAEAEA',  // border hover color
+    draggable:          true,       // enable draggable thumbnails
+     
+    // Photo container
+    fadeDuration:       200,        // speed at which photo fades (ms)
+    pickupDuration:     500,        // speed at which photo is picked up & put down (ms)
+    photoZIndex:        100,        // z-index (show above all)
+    photoBorder:        10,         // border width around fullsize image
+    photoBorderColor:   'white',    // border color
+    showInfo:           true,       // include photo description (alt tag) in photo container
+     
+    // Autoplay
+    autoplayGallery:    false,      // autoplay the photopile
+    autoplaySpeed:      5000,       // ms
+     
+    // Images
+    loading:            'images/loading.gif'  // path to img displayed while gallery/thumbnails loads
 
 Reference [photopile-js.com](http://photopile-js.com) for more detail.
 
