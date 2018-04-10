@@ -4,7 +4,7 @@
 // Date: 8 May 2014
 //
 // Photopile image gallery
-function PhotoPile(options){
+function PhotoPile(options) {
 
     //---------------------------------------------------------------------------------------------
     //  PHOTOPILE SETTINGS (Optionable)
