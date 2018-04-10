@@ -24,6 +24,7 @@ function PhotoPile(options) {
     var config, defaultOptions = {
         // Thumbnails
         numLayers:          5,          // number of layers in the pile (max zindex)
+        thumbOverlapFlexible: false,    // overlap to flexible random range which has min to max size
         thumbOverlap:       50,         // overlap amount (px)
         thumbRotation:      45,         // maximum rotation (deg)
         thumbBorderWidth:   2,          // border width (px)
@@ -192,7 +193,17 @@ function PhotoPile(options) {
         },
 
         // Setters for various thumbnail properties.
-        setOverlap  : function( thumb ) { thumb.css( 'margin', ((config.thumbOverlap * -1) / 2) + 'px' ); },
+        setOverlap  : function( thumb ) {
+            if (config.thumbOverlapFlexible){
+                var min = -1 * config.thumbOverlap;
+                var max = config.thumbOverlap;
+                var randomOverlap = Math.floor( Math.random() * (max - min + 1)) + min;
+                var original = ((config.thumbOverlap * -1) / 2);
+                thumb.css( 'margin', randomOverlap + 'px' );
+            } else {
+                thumb.css( 'margin', ((config.thumbOverlap * -1) / 2) + 'px' );
+            }
+        },
         setZ        : function( thumb, layer ) { thumb.css( 'z-index', layer ); },
         setRandomZ  : function( thumb ) { thumb.css({ 'z-index' : Math.floor((Math.random() * config.numLayers) + 1) }); },
         setRotation : function( thumb ) {
