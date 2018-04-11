@@ -298,42 +298,42 @@ function PhotoPile(options) {
 
         // Simulates picking up a photo from the photopile.
         pickup : function( thumbnail ) {
-            var self = this;
-            if ( self.isPickedUp ) {
-                // photo already picked up. put it down and then pickup the clicked thumbnail
-                self.putDown( function() { self.pickup( thumbnail ); });
-            } else {
-                self.isPickedUp = true;
-                thumb.clearActiveClass();
-                thumb.setActive( thumbnail );
-                self.loadImage( thumb.getActiveImgSrc(), function() {
-                    self.image.fadeTo(config.fadeDuration, '1');
-                    self.enlarge();
-                    $('body').bind('click', function() { self.putDown(); }); // bind putdown event to body
-                });
-            }
+            // var self = this;
+            // if ( self.isPickedUp ) {
+            //     // photo already picked up. put it down and then pickup the clicked thumbnail
+            //     self.putDown( function() { self.pickup( thumbnail ); });
+            // } else {
+            //     self.isPickedUp = true;
+            //     thumb.clearActiveClass();
+            //     thumb.setActive( thumbnail );
+            //     self.loadImage( thumb.getActiveImgSrc(), function() {
+            //         self.image.fadeTo(config.fadeDuration, '1');
+            //         self.enlarge();
+            //         $('body').bind('click', function() { self.putDown(); }); // bind putdown event to body
+            //     });
+            // }
         }, // pickup
 
         // Simulates putting a photo down, or returning to the photo pile.
         putDown : function( callback ) {
-            self = this;
-            $('body').unbind();
-            self.hideInfo();
-            navigator.hideControls();
-            thumb.setZ( thumb.getActive(), config.numLayers );
-            self.container.stop().animate({
-                'top'     : thumb.getActiveOffset().top + thumb.getActiveShift(),
-                'left'    : thumb.getActiveOffset().left + thumb.getActiveShift(),
-                'width'   : thumb.getActiveWidth() + 'px',
-                'height'  : thumb.getActiveHeight() + 'px',
-                'padding' : config.thumbBorderWidth + 'px'
-            }, config.pickupDuration, function() {
-                self.isPickedUp = false;
-                thumb.clearActiveClass();
-                self.container.fadeOut( config.fadeDuration, function() {
-                    if (callback) callback();
-                });
-            });
+            // self = this;
+            // $('body').unbind();
+            // self.hideInfo();
+            // navigator.hideControls();
+            // thumb.setZ( thumb.getActive(), config.numLayers );
+            // self.container.stop().animate({
+            //     'top'     : thumb.getActiveOffset().top + thumb.getActiveShift(),
+            //     'left'    : thumb.getActiveOffset().left + thumb.getActiveShift(),
+            //     'width'   : thumb.getActiveWidth() + 'px',
+            //     'height'  : thumb.getActiveHeight() + 'px',
+            //     'padding' : config.thumbBorderWidth + 'px'
+            // }, config.pickupDuration, function() {
+            //     self.isPickedUp = false;
+            //     thumb.clearActiveClass();
+            //     self.container.fadeOut( config.fadeDuration, function() {
+            //         if (callback) callback();
+            //     });
+            // });
         },
 
         // Handles the loading of an image when a thumbnail is clicked.
