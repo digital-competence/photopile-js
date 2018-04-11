@@ -68,6 +68,7 @@ function PhotoPile(options) {
         photo.init();
 
         // once gallery has loaded completely
+
         $(window).load(function() {
             $('.js div.photopile-wrapper').css({  // style container
                 'padding' : config.thumbOverlap + 'px',
