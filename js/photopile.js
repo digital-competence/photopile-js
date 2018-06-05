@@ -61,13 +61,13 @@ function PhotoPile(options){
         });
 
         // initialize thumbnails and photo container
-        $('ul.photopile').children().each( function() { 
+        $('ul.photopile').children().each( function() {
             thumb.init($(this));
         });
         photo.init();
 
         // once gallery has loaded completely
-        $(window).load(function() {
+        $(window).on('load', function() {
             $('.js div.photopile-wrapper').css({  // style container
                 'padding' : config.thumbOverlap + 'px',
                 'background-image' : 'none'
@@ -80,7 +80,7 @@ function PhotoPile(options){
                 autoplay();
             }
         });
-    
+
     } // init
 
     function autoplay() {
@@ -121,12 +121,12 @@ function PhotoPile(options){
 
                 thumb.draggable({
 
-                    start : function(event, ui) { 
+                    start : function(event, ui) {
                         thumb.addClass('preventClick');
                         thumb.css('z-index', config.numLayers + 2);
 
                         // unbind mouseover/out so thumb remains above pile
-                        $('ul.photopile').children().each( function() { 
+                        $('ul.photopile').children().each( function() {
                             thumb.unbind("mouseover", self.bringToTop);
                             thumb.unbind("mouseout", self.moveDownOne);
                         });
@@ -139,9 +139,8 @@ function PhotoPile(options){
                     }, 
                     stop: function( event, ui ) { 
                         thumb.css('z-index', config.numLayers + 1);
-
                         // re-bind mouseover/out so thumb is moved to top of pile on hover
-                        $('ul.photopile').children().each( function() { 
+                        $('ul.photopile').children().each( function() {
                             thumb.bind("mouseover", self.bringToTop);
                             thumb.bind("mouseout", self.moveDownOne);
                         });
@@ -155,10 +154,10 @@ function PhotoPile(options){
         // Binds UI actions to thumbnail.
         bindUIActions : function( thumb ) {
             var self = this;
-            
+
             thumb.bind("mouseover", self.bringToTop);
             thumb.bind("mouseout", self.moveDownOne);
-       
+
             // Pickup the thumbnail on click (if not being dragged).
             thumb.click( function(e) {
                 e.preventDefault();
@@ -171,7 +170,7 @@ function PhotoPile(options){
             });
 
             // Prevent user from having to double click thumbnail after dragging.
-            thumb.mousedown( function(e) { 
+            thumb.mousedown( function(e) {
                 $(this).removeClass('preventClick');
             });
 
@@ -224,7 +223,7 @@ function PhotoPile(options){
             return ($('li.' + this.active)[0]) ? $('li.' + this.active).first() : false;
         },
 
-        // Returns a shift amount used to better position the photo container 
+        // Returns a shift amount used to better position the photo container
         // on top of the active thumb. Needed because offset is skewed by thumbnail's rotation.
         getActiveShift : function() {
             return ( this.getActiveRotation() < 0 )
@@ -236,17 +235,17 @@ function PhotoPile(options){
         clearActiveClass : function() { $('li.' + this.active).fadeTo(config.fadeDuration, 1).removeClass(this.active); }
 
     } // thumbnail
- 
+
     //--------------------------------------------------------------------
     // PHOTO CONTAINER
-    // Dynamic container div wrapping an img element that displays the 
+    // Dynamic container div wrapping an img element that displays the
     // fullsize image associated with the active thumbnail
     //--------------------------------------------------------------------
 
     var photo = {
 
         // Photo container elements
-        container : $( '<div id="photopile-active-image-container"/>' ), 
+        container : $( '<div id="photopile-active-image-container"/>' ),
         image     : $( '<img id="photopile-active-image" />'),
         info      : $( '<div id="photopile-active-image-info"/>'),
 
@@ -254,7 +253,7 @@ function PhotoPile(options){
         fullSizeWidth  : null,   // will hold width of active thumbnail's fullsize image
         fullSizeHeight : null,   // will hold height of active thumbnail's fullsize image
         windowPadding  : 40,     // minimum space between container and edge of window (px)
-        
+
         // Adds photo container elements to DOM.
         init : function() {
 
@@ -281,7 +280,7 @@ function PhotoPile(options){
                 this.info.append('<p></p>');
                 this.info.css('opacity', '0');
             };
-   
+
         }, // init
 
         // Simulates picking up a photo from the photopile.
@@ -438,11 +437,11 @@ function PhotoPile(options){
         },
 
         // Sets the photo container's image source.
-        setImageSource : function( src ) { 
+        setImageSource : function( src ) {
             this.image.attr('src', src).css({
                 'width'      : '100%',
                 'height'     : '100%',
-                'margin-top' : '0' 
+                'margin-top' : '0'
             });
         }
 
@@ -471,6 +470,7 @@ function PhotoPile(options){
 
             // Bind next/prev event to the left and right arrow controls
             this.next.click( function(e) {
+                console.log('TEST');
                 e.preventDefault();
                 navigator.pickupNext();
             });
@@ -491,7 +491,7 @@ function PhotoPile(options){
             var activeThumb = thumb.getActive();
             if ( !activeThumb ) return;
             if ( activeThumb.hasClass('last')) {
-                photo.pickup( $('ul.photopile').children().first() );  // pickup first 
+                photo.pickup( $('ul.photopile').children().first() );  // pickup first
             } else {
                 photo.pickup( activeThumb.next('li') ); // pickup next
             }
@@ -501,7 +501,7 @@ function PhotoPile(options){
             var activeThumb = thumb.getActive();
             if ( !activeThumb ) return;
             if ( activeThumb.hasClass('first')) {
-                photo.pickup( $('ul.photopile').children().last() );  // pickup last 
+                photo.pickup( $('ul.photopile').children().last() );  // pickup last
             } else {
                 photo.pickup( activeThumb.prev('li') ); // pickup prev
             }
@@ -519,7 +519,7 @@ function PhotoPile(options){
 
     }; // navigator
 
-    return { 
+    return {
         scatter  : init,
         autoplay : autoplay
     }
