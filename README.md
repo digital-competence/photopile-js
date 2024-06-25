@@ -1,20 +1,17 @@
 Photopile JS
 ============
-**Photopile JS** is a JavaScript/jQuery image gallery that simulates a pile of photos scattered about on a surface. 
-Thumbnail clicks remove photos from the pile, *(enlarging them as if being picked up by the user)*, and once in view a secondary click returns the photo to the pile. Thumbnails are draggable, enhancing the experience by allowing photos buried deep in the pile to be uncovered. 
+**Photopile JS** is a JavaScript/jQuery image gallery that simulates
+a pile of photos scattered about on a surface. Thumbnail clicks remove photos
+from the pile, *(enlarging them as if being picked up by the user)*, and
+once in view a secondary click returns the photo to the pile.
+Thumbnails are draggable, enhancing the experience by allowing photos
+buried deep in the pile to be uncovered.
 
-**Demo:** [photopile-js.com/demo](http://photopile-js.com/demo)
+**Demo:** [bri.how/project/photopile/demo.html](bri.how/project/photopile/demo.html)
 
-Improvements
-------------
-Wish list for future improvements:
-
-* Improved cross-browser support
-* Improved performance when user quick-clicks multiple thumbnails before they are viewed
-
-Use
----
-Include in your project:
+Usage
+-----
+**Include in your project:**
 
 * jQuery
 * jQuery UI
@@ -23,6 +20,8 @@ Include in your project:
 * photopile.js
 * loading.gif
 * nav-sprites.png
+
+*Reference demo.html for details*
 
 Add gallery markup:
 
@@ -69,8 +68,6 @@ Optionables here (with default values):
      
     // Images
     loading:            'images/loading.gif'  // path to img displayed while gallery/thumbnails loads
-
-Reference [photopile-js.com](http://photopile-js.com) for more detail.
 
 The MIT License (MIT)
 ---------------------
