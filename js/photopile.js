@@ -4,7 +4,7 @@
 // Date: 8 May 2014
 //
 // Photopile image gallery
-function PhotoPile(options){
+export function PhotoPile(options){
 
     //---------------------------------------------------------------------------------------------
     //  PHOTOPILE SETTINGS (Optionable)
@@ -134,7 +134,7 @@ function PhotoPile(options){
                     },
                     drag : function( event, ui ) {
                         velocity = (ui.offset.left - x) * 1.2;
-                        ratio = parseInt( velocity * 100 / 360 );
+                        let ratio = parseInt( velocity * 100 / 360 );
                         thumb.css('transform','rotateZ('+(ratio)+'deg)');
                         x = ui.offset.left;
                     },
@@ -223,10 +223,10 @@ function PhotoPile(options){
         getActiveWidth    : function() { return $('li.' + this.active).width(); },
         getActiveImgSrc   : function() { return $('li.' + this.active).children().first().attr('href'); },
         getActiveRotation : function() {
-                var transform = $('li.' + this.active).css("transform");
-                var values = transform.split('(')[1].split(')')[0].split(',');
-                var angle = Math.round( Math.asin( values[1]) * (180/Math.PI) );
-                return angle;
+            var transform = $('li.' + this.active).css("transform");
+            var values = transform.split('(')[1].split(')')[0].split(',');
+            var angle = Math.round( Math.asin( values[1]) * (180/Math.PI) );
+            return angle;
         },
 
         // Gets the active thumbnail if set, or returns false.
@@ -296,42 +296,42 @@ function PhotoPile(options){
 
         // Simulates picking up a photo from the photopile.
         pickup : function( thumbnail ) {
-            // var self = this;
-            // if ( self.isPickedUp ) {
-            //     // photo already picked up. put it down and then pickup the clicked thumbnail
-            //     self.putDown( function() { self.pickup( thumbnail ); });
-            // } else {
-            //     self.isPickedUp = true;
-            //     thumb.clearActiveClass();
-            //     thumb.setActive( thumbnail );
-            //     self.loadImage( thumb.getActiveImgSrc(), function() {
-            //         self.image.fadeTo(config.fadeDuration, '1');
-            //         self.enlarge();
-            //         $('body').bind('click', function() { self.putDown(); }); // bind putdown event to body
-            //     });
-            // }
+            var self = this;
+            if ( self.isPickedUp ) {
+                // photo already picked up. put it down and then pickup the clicked thumbnail
+                self.putDown( function() { self.pickup( thumbnail ); });
+            } else {
+                self.isPickedUp = true;
+                thumb.clearActiveClass();
+                thumb.setActive( thumbnail );
+                self.loadImage( thumb.getActiveImgSrc(), function() {
+                    self.image.fadeTo(config.fadeDuration, '1');
+                    self.enlarge();
+                    $('body').bind('click', function() { self.putDown(); }); // bind putdown event to body
+                });
+            }
         }, // pickup
 
         // Simulates putting a photo down, or returning to the photo pile.
         putDown : function( callback ) {
-            // self = this;
-            // $('body').unbind();
-            // self.hideInfo();
-            // navigator.hideControls();
-            // thumb.setZ( thumb.getActive(), config.numLayers );
-            // self.container.stop().animate({
-            //     'top'     : thumb.getActiveOffset().top + thumb.getActiveShift(),
-            //     'left'    : thumb.getActiveOffset().left + thumb.getActiveShift(),
-            //     'width'   : thumb.getActiveWidth() + 'px',
-            //     'height'  : thumb.getActiveHeight() + 'px',
-            //     'padding' : config.thumbBorderWidth + 'px'
-            // }, config.pickupDuration, function() {
-            //     self.isPickedUp = false;
-            //     thumb.clearActiveClass();
-            //     self.container.fadeOut( config.fadeDuration, function() {
-            //         if (callback) callback();
-            //     });
-            // });
+            self = this;
+            $('body').unbind();
+            self.hideInfo();
+            navigator.hideControls();
+            thumb.setZ( thumb.getActive(), config.numLayers );
+            self.container.stop().animate({
+                'top'     : thumb.getActiveOffset().top + thumb.getActiveShift(),
+                'left'    : thumb.getActiveOffset().left + thumb.getActiveShift(),
+                'width'   : thumb.getActiveWidth() + 'px',
+                'height'  : thumb.getActiveHeight() + 'px',
+                'padding' : config.thumbBorderWidth + 'px'
+            }, config.pickupDuration, function() {
+                self.isPickedUp = false;
+                thumb.clearActiveClass();
+                self.container.fadeOut( config.fadeDuration, function() {
+                    if (callback) callback();
+                });
+            });
         },
 
         // Handles the loading of an image when a thumbnail is clicked.
@@ -386,7 +386,11 @@ function PhotoPile(options){
         // Updates the info div text and makes visible within the photo container.
         showInfo : function() {
             if ( config.showInfo ) {
-                this.info.children().text( thumb.getActive().children('a').children('img').attr('alt') );
+                if (thumb.getActive().data('title')) {
+                    this.info.children().html( thumb.getActive().data('title') )
+                } else {
+                    this.info.children().html( thumb.getActive().children('a').children('img').attr('alt') );
+                }
                 this.info.css({
                     'margin-top' : -(this.info.height()) + 'px'
                 }).fadeTo(config.fadeDuration, 1);
